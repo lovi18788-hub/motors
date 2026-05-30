@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McKernon Motors — Calgary, Alberta</title>
+<meta name="description" content="Calgary's premier automotive dealership. McKernon Motors — curated luxury vehicles, exceptional service, Alberta's most trusted name in premium cars.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --black:#0a0a0a;
+  --white:#f8f6f2;
+  --warm:#ede9e1;
+  --gray:#888580;
+  --light:#d4d0c8;
+  --border-dark:rgba(255,255,255,0.1);
+  --border-light:rgba(0,0,0,0.1);
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--white);
+  color:var(--black);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+::-webkit-scrollbar{width:2px;}
+::-webkit-scrollbar-track{background:var(--white);}
+::-webkit-scrollbar-thumb{background:var(--black);}
+
+/* CURSOR */
+.cur{
+  width:10px;height:10px;
+  background:var(--black);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width 0.3s,height 0.3s,background 0.3s;
+  mix-blend-mode:difference;
+}
+.cur-ring{
+  width:40px;height:40px;
+  border:1px solid rgba(0,0,0,0.3);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all 0.18s ease;
+}
+.cur.hover{width:60px;height:60px;}
+
+/* LOADER */
+.loader{
+  position:fixed;inset:0;
+  background:var(--black);
+  z-index:99999;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  transition:opacity 1s ease,visibility 1s ease;
+}
+.loader.out{opacity:0;visibility:hidden;}
+.loader-wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3.6rem);
+  font-weight:300;
+  color:var(--white);
+  letter-spacing:12px;
+  text-transform:uppercase;
+  opacity:0;
+  animation:fadeUp 0.8s 0.3s forwards;
+}
+.loader-line{
+  width:0;height:1px;
+  background:var(--white);
+  margin-top:28px;
+  animation:lineExpand 1.2s 0.6s cubic-bezier(0.77,0,0.175,1) forwards;
+}
+.loader-sub{
+  font-size:0.6rem;
+  letter-spacing:5px;
+  color:rgba(255,255,255,0.3);
+  margin-top:14px;
+  font-family:'DM Mono',monospace;
+  text-transform:uppercase;
+  opacity:0;
+  animation:fadeUp 0.6s 1s forwards;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes lineExpand{from{width:0;}to{width:180px;}}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:1000;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;
+  mix-blend-mode:normal;
+  transition:all 0.4s;
+}
+nav.scrolled{
+  background:rgba(248,246,242,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-light);
+}
+nav.dark-nav{
+  background:rgba(10,10,10,0.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-dark);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;
+  font-weight:500;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:inherit;
+  transition:color 0.3s;
+}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{
+  font-size:0.72rem;
+  font-weight:500;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:inherit;
+  opacity:0.5;
+  transition:opacity 0.2s;
+}
+.nav-links a:hover{opacity:1;}
+.nav-cta{
+  font-size:0.68rem!important;
+  font-weight:600!important;
+  letter-spacing:2px!important;
+  padding:10px 22px;
+  border:1px solid currentColor;
+  border-radius:2px;
+  opacity:1!important;
+  transition:all 0.3s!important;
+}
+.nav-cta:hover{background:currentColor;color:var(--white)!important;}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:var(--black);
+  color:var(--white);
+  overflow:hidden;
+  position:relative;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 7% 8%;
+  position:relative;
+  z-index:2;
+}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:5px;
+  color:rgba(255,255,255,0.35);
+  text-transform:uppercase;
+  margin-bottom:24px;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:rgba(255,255,255,0.3);}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.2rem,5.5vw,5.5rem);
+  font-weight:300;
+  line-height:1.0;
+  letter-spacing:-1px;
+  color:var(--white);
+  margin-bottom:32px;
+}
+.hero h1 em{font-style:italic;font-weight:300;}
+.hero-desc{
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.45);
+  line-height:1.9;
+  max-width:380px;
+  margin-bottom:44px;
+  font-weight:300;
+}
+.hero-actions{display:flex;gap:14px;align-items:center;}
+.btn-white{
+  padding:14px 32px;
+  background:var(--white);
+  color:var(--black);
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-radius:2px;
+  transition:all 0.3s;
+  border:1px solid var(--white);
+}
+.btn-white:hover{background:transparent;color:var(--white);}
+.btn-ghost-white{
+  padding:14px 32px;
+  background:transparent;
+  color:rgba(255,255,255,0.6);
+  font-size:0.72rem;
+  font-weight:500;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-radius:2px;
+  border:1px solid rgba(255,255,255,0.15);
+  transition:all 0.3s;
+}
+.btn-ghost-white:hover{border-color:rgba(255,255,255,0.5);color:var(--white);}
+.hero-stats{
+  display:flex;gap:40px;
+  margin-top:56px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.hstat h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;font-weight:400;
+  color:var(--white);line-height:1;
+}
+.hstat p{font-size:0.62rem;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+
+/* 3D CAR SCENE */
+.hero-right{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.car-3d-scene{
+  width:100%;height:100%;
+  position:relative;
+  perspective:1200px;
+  display:flex;align-items:center;justify-content:center;
+}
+.car-3d-wrap{
+  width:90%;
+  transform-style:preserve-3d;
+  transform:rotateY(-8deg) rotateX(3deg);
+  transition:transform 0.1s ease-out;
+  position:relative;
+}
+.car-3d-wrap img{
+  width:100%;
+  display:block;
+  filter:brightness(0.85) contrast(1.1);
+  border-radius:4px;
+}
+.car-3d-shadow{
+  position:absolute;
+  bottom:-30px;left:10%;right:10%;
+  height:40px;
+  background:radial-gradient(ellipse,rgba(0,0,0,0.6) 0%,transparent 70%);
+  filter:blur(8px);
+  transform:scaleY(0.4);
+}
+.car-3d-glow{
+  position:absolute;
+  inset:-20%;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(255,255,255,0.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-right-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);
+  z-index:-1;
+}
+.hero-right-lines{
+  position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.car-label{
+  position:absolute;top:32px;left:32px;
+  font-family:'DM Mono',monospace;
+  font-size:0.55rem;
+  letter-spacing:4px;
+  color:rgba(255,255,255,0.2);
+  text-transform:uppercase;
+}
+.car-spec-pills{
+  position:absolute;bottom:40px;left:32px;
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.pill{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:6px 12px;
+  border-radius:100px;
+  font-size:0.6rem;
+  color:rgba(255,255,255,0.5);
+  letter-spacing:1.5px;
+  backdrop-filter:blur(10px);
+}
+.scroll-hint{
+  position:absolute;bottom:40px;right:5%;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,0.2);
+  font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;
+  animation:scrollBounce 2s infinite;
+}
+.scroll-hint::after{content:'';width:1px;height:40px;background:rgba(255,255,255,0.15);}
+@keyframes scrollBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+/* MARQUEE */
+.marquee-bar{
+  background:var(--black);
+  padding:16px 0;
+  overflow:hidden;
+  white-space:nowrap;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.marquee-inner{display:inline-flex;animation:marquee 22s linear infinite;}
+.mi{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-style:italic;font-weight:300;
+  color:rgba(255,255,255,0.25);
+  padding:0 32px;letter-spacing:2px;
+}
+.mi-dot{color:rgba(255,255,255,0.1);padding:0 8px;font-style:normal;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ABOUT — white section */
+.about-section{
+  background:var(--white);
+  padding:120px 5%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+  align-items:center;
+}
+.about-left{}
+.eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:5px;
+  color:var(--gray);text-transform:uppercase;
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--gray);}
+.big-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,4vw,4rem);
+  font-weight:300;
+  line-height:1.1;
+  letter-spacing:-0.5px;
+  color:var(--black);
+  margin-bottom:20px;
+}
+.big-title em{font-style:italic;}
+.body-text{
+  font-size:0.92rem;color:var(--gray);line-height:1.9;
+  font-weight:300;margin-bottom:32px;max-width:480px;
+}
+.about-feats{display:grid;gap:1px;margin-top:40px;background:var(--border-light);}
+.af{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:22px 0;background:var(--white);
+  border-bottom:1px solid var(--border-light);
+  transition:padding-left 0.3s;
+}
+.af:hover{padding-left:8px;}
+.af-num{
+  font-family:'DM Mono',monospace;font-size:0.6rem;
+  color:var(--light);letter-spacing:2px;
+  padding-top:3px;min-width:28px;
+}
+.af h4{font-size:0.9rem;font-weight:600;color:var(--black);margin-bottom:4px;}
+.af p{font-size:0.78rem;color:var(--gray);line-height:1.7;font-weight:300;}
+.about-right{position:relative;}
+.about-img-main{
+  width:100%;height:580px;object-fit:cover;
+  filter:grayscale(15%) contrast(1.05);
+  display:block;
+}
+.about-img-tag{
+  position:absolute;bottom:-20px;right:-20px;
+  background:var(--black);color:var(--white);
+  padding:28px 32px;
+}
+.about-img-tag h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem;font-weight:300;line-height:1;
+}
+.about-img-tag p{font-size:0.62rem;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+
+/* 3D SCROLL SECTION — dark */
+.scroll-3d-section{
+  background:var(--black);
+  padding:120px 5%;
+  overflow:hidden;
+  position:relative;
+}
+.s3d-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:80px;}
+.s3d-header .big-title{color:var(--white);}
+.s3d-header .body-text{color:rgba(255,255,255,0.35);}
+.s3d-header .eyebrow{color:rgba(255,255,255,0.3);}
+.s3d-header .eyebrow::before{background:rgba(255,255,255,0.3);}
+
+.cars-3d-row{
+  display:flex;gap:32px;
+  padding-bottom:40px;
+}
+.car3d{
+  flex:0 0 380px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:4px;
+  overflow:hidden;
+  transition:all 0.5s cubic-bezier(0.16,1,0.3,1);
+  cursor:none;
+  transform:perspective(800px) rotateY(0deg) rotateX(0deg);
+  transform-style:preserve-3d;
+}
+.car3d:hover{
+  border-color:rgba(255,255,255,0.2);
+  box-shadow:0 40px 80px rgba(0,0,0,0.6);
+  transform:perspective(800px) rotateY(-4deg) rotateX(2deg) translateY(-12px) !important;
+}
+.car3d-img{
+  width:100%;height:240px;object-fit:cover;
+  filter:grayscale(20%) brightness(0.8);
+  transition:filter 0.4s,transform 0.5s;
+  display:block;
+}
+.car3d:hover .car3d-img{
+  filter:grayscale(0%) brightness(0.95);
+  transform:scale(1.04);
+}
+.car3d-body{padding:28px;}
+.car3d-make{
+  font-family:'DM Mono',monospace;font-size:0.58rem;
+  letter-spacing:3px;color:rgba(255,255,255,0.25);
+  text-transform:uppercase;margin-bottom:8px;
+}
+.car3d-body h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:400;
+  color:var(--white);margin-bottom:16px;letter-spacing:0.5px;
+}
+.car3d-specs{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;}
+.car3d-spec{
+  font-size:0.68rem;color:rgba(255,255,255,0.3);
+  display:flex;align-items:center;gap:5px;
+}
+.car3d-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:20px;border-top:1px solid rgba(255,255,255,0.07);
+}
+.car3d-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:400;color:var(--white);
+}
+.car3d-btn{
+  font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;
+  padding:9px 16px;border:1px solid rgba(255,255,255,0.2);
+  color:rgba(255,255,255,0.5);border-radius:2px;
+  transition:all 0.2s;background:transparent;cursor:none;
+  font-family:'Outfit',sans-serif;font-weight:500;
+}
+.car3d:hover .car3d-btn{background:var(--white);color:var(--black);border-color:var(--white);}
+
+/* SERVICES — white */
+.services-section{background:var(--white);padding:120px 5%;}
+.svc-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:80px;}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border-light);
+}
+.svc{
+  padding:48px 36px;border-right:1px solid var(--border-light);
+  position:relative;overflow:hidden;transition:all 0.3s;cursor:none;
+}
+.svc:nth-child(3n){border-right:none;}
+.svc:nth-child(n+4){border-top:1px solid var(--border-light);}
+.svc::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:2px;background:var(--black);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s;
+}
+.svc:hover::before{transform:scaleX(1);}
+.svc:hover{background:var(--warm);}
+.svc-num{
+  font-family:'DM Mono',monospace;font-size:0.55rem;
+  letter-spacing:3px;color:var(--light);margin-bottom:24px;
+}
+.svc-icon{font-size:1.6rem;margin-bottom:18px;display:block;filter:grayscale(1);}
+.svc h3{
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;
+  font-weight:500;color:var(--black);margin-bottom:12px;
+}
+.svc p{font-size:0.8rem;color:var(--gray);line-height:1.8;font-weight:300;}
+.svc-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--black);margin-top:22px;transition:gap 0.2s;
+}
+.svc:hover .svc-link{gap:14px;}
+
+/* TESTIMONIALS — black */
+.testi-section{background:var(--black);padding:120px 5%;}
+.testi-header{margin-bottom:70px;}
+.testi-header .big-title{color:var(--white);}
+.testi-header .eyebrow{color:rgba(255,255,255,0.25);}
+.testi-header .eyebrow::before{background:rgba(255,255,255,0.25);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);}
+.tc{
+  background:var(--black);padding:44px 36px;
+  transition:background 0.3s;cursor:none;
+}
+.tc:hover{background:#111;}
+.tc-stars{
+  font-size:0.65rem;letter-spacing:3px;
+  color:rgba(255,255,255,0.3);margin-bottom:24px;
+}
+.tc-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:300;color:rgba(255,255,255,0.08);
+  line-height:1;margin-bottom:8px;font-style:italic;
+}
+.tc p{
+  font-size:0.88rem;color:rgba(255,255,255,0.45);
+  line-height:1.9;font-weight:300;font-style:italic;
+  margin-bottom:32px;
+}
+.tc-auth{
+  display:flex;align-items:center;gap:14px;
+  padding-top:28px;border-top:1px solid rgba(255,255,255,0.07);
+}
+.tc-av{
+  width:44px;height:44px;border-radius:50%;object-fit:cover;
+  filter:grayscale(40%);border:1px solid rgba(255,255,255,0.1);
+}
+.tc-auth h5{font-size:0.85rem;font-weight:600;color:var(--white);margin-bottom:2px;}
+.tc-auth span{font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:1px;}
+
+/* CONTACT — white */
+.contact-section{background:var(--white);padding:120px 5%;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:100px;align-items:start;}
+.contact-items{display:grid;gap:0;margin-top:40px;border-top:1px solid var(--border-light);}
+.ci{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:20px 0;border-bottom:1px solid var(--border-light);
+  transition:padding-left 0.3s;
+}
+.ci:hover{padding-left:6px;}
+.ci-icon{
+  width:36px;height:36px;border:1px solid var(--border-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;flex-shrink:0;border-radius:2px;
+}
+.ci h4{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--light);font-family:'DM Mono',monospace;margin-bottom:4px;}
+.ci p{font-size:0.88rem;color:var(--black);font-weight:500;}
+
+/* FORM */
+.cform{
+  background:var(--black);color:var(--white);
+  padding:50px;border-radius:2px;
+}
+.cform-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.7rem;font-weight:300;color:var(--white);
+  margin-bottom:6px;
+}
+.cform-sub{font-size:0.75rem;color:rgba(255,255,255,0.3);margin-bottom:36px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.fg{margin-bottom:18px;}
+.fg label{
+  display:block;font-family:'DM Mono',monospace;
+  font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);margin-bottom:8px;
+}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:2px;color:var(--white);
+  font-family:'Outfit',sans-serif;font-size:0.85rem;
+  outline:none;transition:border-color 0.2s,background 0.2s;
+}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,0.15);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:rgba(255,255,255,0.4);
+  background:rgba(255,255,255,0.06);
+}
+.fg select option{background:#1a1a1a;}
+.fg textarea{resize:vertical;min-height:100px;}
+.fbtn{
+  width:100%;padding:16px;
+  background:var(--white);color:var(--black);
+  border:none;border-radius:2px;
+  font-family:'Outfit',sans-serif;font-size:0.72rem;
+  font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  cursor:none;margin-top:8px;
+  transition:all 0.3s;
+}
+.fbtn:hover{background:var(--warm);}
+
+/* FOOTER */
+footer{
+  background:var(--black);color:var(--white);
+  padding:70px 5% 28px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;
+  gap:50px;margin-bottom:60px;
+}
+.fb-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:400;letter-spacing:6px;
+  text-transform:uppercase;color:var(--white);
+}
+.fb p{
+  font-size:0.8rem;color:rgba(255,255,255,0.25);
+  line-height:1.9;margin-top:16px;font-weight:300;max-width:260px;
+}
+.fc h4{
+  font-family:'DM Mono',monospace;font-size:0.55rem;
+  letter-spacing:4px;text-transform:uppercase;
+  color:rgba(255,255,255,0.2);margin-bottom:20px;
+}
+.fc ul{list-style:none;display:grid;gap:12px;}
+.fc ul li a{
+  color:rgba(255,255,255,0.3);text-decoration:none;
+  font-size:0.82rem;font-weight:300;
+  transition:color 0.2s;
+}
+.fc ul li a:hover{color:var(--white);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;
+}
+.footer-bottom p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:'DM Mono',monospace;}
+
+/* REVEAL ANIMATIONS */
+.rv{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);}
+.rv.on{opacity:1;transform:translateY(0);}
+.rvl{opacity:0;transform:translateX(-30px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);}
+.rvl.on{opacity:1;transform:translateX(0);}
+.rvr{opacity:0;transform:translateX(30px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);}
+.rvr.on{opacity:1;transform:translateX(0);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .about-section{grid-template-columns:1fr;}
+  .about-right{display:none;}
+  .s3d-header,.svc-header,.contact-grid{grid-template-columns:1fr;}
+  .svc-grid{grid-template-columns:1fr;}
+  .svc{border-right:none;}
+  .testi-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .frow{grid-template-columns:1fr;}
+  .cars-3d-row{flex-direction:column;}
+  .car3d{flex:none;}
+  .hero-stats{flex-wrap:wrap;gap:24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-wordmark">McKernon Motors</div>
+  <div class="loader-line"></div>
+  <div class="loader-sub">Calgary · Alberta · Est. 2008</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">McKernon Motors</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#inventory">Inventory</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Calgary, Alberta · Premium Automotive</div>
+    <h1>Where Fine<br><em>Automobiles</em><br>Find Their<br>Drivers.</h1>
+    <p class="hero-desc">For over sixteen years, McKernon Motors has been Calgary's most trusted name in premium and luxury vehicles. Curated inventory, honest counsel, exceptional care.</p>
+    <div class="hero-actions">
+      <a href="#inventory" class="btn-white">View Inventory</a>
+      <a href="#contact" class="btn-ghost-white">Book Test Drive</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><h3>500+</h3><p>Vehicles Sold</p></div>
+      <div class="hstat"><h3>16 Yrs</h3><p>In Calgary</p></div>
+      <div class="hstat"><h3>4.9 ★</h3><p>Client Rating</p></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="hero-right-lines"></div>
+    <div class="car-3d-scene">
+      <div class="car-3d-wrap" id="heroCar">
+        <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85" alt="Premium vehicle">
+        <div class="car-3d-shadow"></div>
+        <div class="car-3d-glow"></div>
+      </div>
+    </div>
+    <div class="car-label">Featured Vehicle · 2024 Collection</div>
+    <div class="car-spec-pills">
+      <span class="pill">V8 · 600 HP</span>
+      <span class="pill">AWD</span>
+      <span class="pill">Luxury Package</span>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span class="mi">Luxury Vehicles</span><span class="mi-dot">—</span>
+    <span class="mi">Premium Financing</span><span class="mi-dot">—</span>
+    <span class="mi">Certified Pre-Owned</span><span class="mi-dot">—</span>
+    <span class="mi">Trade-In Appraisals</span><span class="mi-dot">—</span>
+    <span class="mi">Expert Service Centre</span><span class="mi-dot">—</span>
+    <span class="mi">Calgary, Alberta</span><span class="mi-dot">—</span>
+    <span class="mi">Since 2008</span><span class="mi-dot">—</span>
+    <span class="mi">Luxury Vehicles</span><span class="mi-dot">—</span>
+    <span class="mi">Premium Financing</span><span class="mi-dot">—</span>
+    <span class="mi">Certified Pre-Owned</span><span class="mi-dot">—</span>
+    <span class="mi">Trade-In Appraisals</span><span class="mi-dot">—</span>
+    <span class="mi">Expert Service Centre</span><span class="mi-dot">—</span>
+    <span class="mi">Calgary, Alberta</span><span class="mi-dot">—</span>
+    <span class="mi">Since 2008</span><span class="mi-dot">—</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-left rvl">
+    <div class="eyebrow">Our Story</div>
+    <h2 class="big-title">Calgary's<br>Most <em>Trusted</em><br>Dealership</h2>
+    <p class="body-text">McKernon Motors was founded on the belief that buying a remarkable car should itself be a remarkable experience. No pressure, no games — just honest guidance and exceptional vehicles.</p>
+    <div class="about-feats">
+      <div class="af rv">
+        <span class="af-num">01</span>
+        <div><h4>200-Point Inspection</h4><p>Every vehicle rigorously inspected by our certified technicians before entering inventory.</p></div>
+      </div>
+      <div class="af rv">
+        <span class="af-num">02</span>
+        <div><h4>Transparent Pricing</h4><p>No hidden fees, no last-minute surprises. The price you see is the price you pay.</p></div>
+      </div>
+      <div class="af rv">
+        <span class="af-num">03</span>
+        <div><h4>Award-Winning Service</h4><p>Recognized five consecutive years as Calgary's top-rated premium dealership.</p></div>
+      </div>
+      <div class="af rv">
+        <span class="af-num">04</span>
+        <div><h4>Comprehensive Warranty</h4><p>Industry-leading coverage on all certified pre-owned vehicles across Alberta.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="about-right rvr">
+    <img class="about-img-main" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=700&q=80" alt="McKernon showroom">
+    <div class="about-img-tag">
+      <h3>16+</h3>
+      <p>Years Serving<br>Calgary</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3D SCROLL INVENTORY -->
+<section class="scroll-3d-section" id="inventory">
+  <div class="s3d-header">
+    <div class="rvl">
+      <div class="eyebrow" style="color:rgba(255,255,255,0.25)">Featured Vehicles</div>
+      <h2 class="big-title" style="color:var(--white)">Current<br><em>Inventory</em></h2>
+    </div>
+    <p class="body-text rv" style="color:rgba(255,255,255,0.35)">Each vehicle hand-selected, thoroughly inspected, and ready for Alberta's roads. Hover to experience the detail.</p>
+  </div>
+  <div class="cars-3d-row" id="carsRow">
+    <div class="car3d rv" id="c1">
+      <div style="overflow:hidden;height:240px;">
+        <img class="car3d-img" src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80" alt="BMW M5">
+      </div>
+      <div class="car3d-body">
+        <div class="car3d-make">BMW · 2024</div>
+        <h3>M5 Competition</h3>
+        <div class="car3d-specs">
+          <span class="car3d-spec">⚡ 617 HP</span>
+          <span class="car3d-spec">🏁 3.5s 0–100</span>
+          <span class="car3d-spec">⚙️ 8-Speed Auto</span>
+        </div>
+        <div class="car3d-footer">
+          <div class="car3d-price">$142,900</div>
+          <button class="car3d-btn">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <div class="car3d rv" id="c2" style="transition-delay:0.1s">
+      <div style="overflow:hidden;height:240px;">
+        <img class="car3d-img" src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80" alt="Porsche 911">
+      </div>
+      <div class="car3d-body">
+        <div class="car3d-make">Porsche · 2023</div>
+        <h3>911 Carrera S</h3>
+        <div class="car3d-specs">
+          <span class="car3d-spec">⚡ 443 HP</span>
+          <span class="car3d-spec">🏁 3.7s 0–100</span>
+          <span class="car3d-spec">⚙️ PDK 7-Speed</span>
+        </div>
+        <div class="car3d-footer">
+          <div class="car3d-price">$168,500</div>
+          <button class="car3d-btn">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <div class="car3d rv" id="c3" style="transition-delay:0.2s">
+      <div style="overflow:hidden;height:240px;">
+        <img class="car3d-img" src="https://images.unsplash.com/photo-1621135802920-133df287f89c?w=600&q=80" alt="Mercedes AMG">
+      </div>
+      <div class="car3d-body">
+        <div class="car3d-make">Mercedes-Benz · 2023</div>
+        <h3>AMG GT 63 S</h3>
+        <div class="car3d-specs">
+          <span class="car3d-spec">⚡ 630 HP</span>
+          <span class="car3d-spec">🏁 3.2s 0–100</span>
+          <span class="car3d-spec">⚙️ AMG Speedshift</span>
+        </div>
+        <div class="car3d-footer">
+          <div class="car3d-price">$189,000</div>
+          <button class="car3d-btn">Enquire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="svc-header">
+    <div class="rvl">
+      <div class="eyebrow">What We Offer</div>
+      <h2 class="big-title">A Complete<br><em>Automotive</em><br>Experience</h2>
+    </div>
+    <p class="body-text rv">From finding your dream vehicle to financing, trade-in, and ongoing service — everything under one roof, handled with care.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc rv"><div class="svc-num">01</div><span class="svc-icon">🚗</span><h3>Vehicle Sales</h3><p>Curated luxury and performance vehicles, new and certified pre-owned, from the world's finest marques.</p><div class="svc-link">Explore →</div></div>
+    <div class="svc rv"><div class="svc-num">02</div><span class="svc-icon">💰</span><h3>Premium Financing</h3><p>Competitive rates and flexible terms tailored to you. Our finance team works with all credit profiles across Alberta.</p><div class="svc-link">Get Pre-Approved →</div></div>
+    <div class="svc rv"><div class="svc-num">03</div><span class="svc-icon">🔄</span><h3>Trade-In Appraisals</h3><p>Get fair, transparent value for your current vehicle. Instant appraisals with no obligation required.</p><div class="svc-link">Value My Car →</div></div>
+    <div class="svc rv"><div class="svc-num">04</div><span class="svc-icon">🔧</span><h3>Service Centre</h3><p>Factory-trained technicians, OEM parts, and state-of-the-art equipment keep your vehicle at its best.</p><div class="svc-link">Book Service →</div></div>
+    <div class="svc rv"><div class="svc-num">05</div><span class="svc-icon">📋</span><h3>Vehicle History</h3><p>Full CARFAX reports and complete service records provided upfront on every pre-owned vehicle.</p><div class="svc-link">Learn More →</div></div>
+    <div class="svc rv"><div class="svc-num">06</div><span class="svc-icon">🏎️</span><h3>Extended Test Drives</h3><p>No rush, no pressure. Take the time you need to truly know your potential vehicle before deciding.</p><div class="svc-link">Book a Drive →</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="testi-header rv">
+    <div class="eyebrow">Client Stories</div>
+    <h2 class="big-title">What Calgary<br><em>Says About Us</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="tc rv">
+      <div class="tc-stars">★★★★★</div>
+      <div class="tc-quote">"</div>
+      <p>McKernon made buying my 911 the most enjoyable dealership experience I have ever had. Complete transparency, zero pressure, and they found me a deal I genuinely couldn't believe.</p>
+      <div class="tc-auth">
+        <img class="tc-av" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="">
+        <div><h5>James Whitfield</h5><span>Calgary, AB · Porsche 911 Owner</span></div>
+      </div>
+    </div>
+    <div class="tc rv">
+      <div class="tc-stars">★★★★★</div>
+      <div class="tc-quote">"</div>
+      <p>Best automotive experience in Alberta. I drove from Edmonton specifically and it was absolutely worth every kilometre. The team genuinely cares about finding you the right vehicle.</p>
+      <div class="tc-auth">
+        <img class="tc-av" src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=100&q=80" alt="">
+        <div><h5>Sarah Beaumont</h5><span>Edmonton, AB · BMW M5 Owner</span></div>
+      </div>
+    </div>
+    <div class="tc rv">
+      <div class="tc-stars">★★★★★</div>
+      <div class="tc-quote">"</div>
+      <p>The financing team worked absolute magic. Three years on and their service centre is still my first call for everything. A truly exceptional dealership that sets the standard for Alberta.</p>
+      <div class="tc-auth">
+        <img class="tc-av" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="">
+        <div><h5>Marcus Chen</h5><span>Calgary, AB · Mercedes AMG Owner</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="eyebrow rv">Get In Touch</div>
+      <h2 class="big-title rv">Visit Us<br>in <em>Calgary</em></h2>
+      <p class="body-text rv">Come see us in person or reach out any time. Our team is always happy to help you find your perfect vehicle.</p>
+      <div class="contact-items rv">
+        <div class="ci"><div class="ci-icon">📍</div><div><h4>Address</h4><p>4820 Macleod Trail SW, Calgary, AB T2G 0A5</p></div></div>
+        <div class="ci"><div class="ci-icon">📞</div><div><h4>Phone</h4><p>+1 (403) 555-0192</p></div></div>
+        <div class="ci"><div class="ci-icon">✉️</div><div><h4>Email</h4><p>sales@mckernonmotors.ca</p></div></div>
+        <div class="ci"><div class="ci-icon">⏰</div><div><h4>Hours</h4><p>Mon–Sat 9AM–7PM · Sun 11AM–5PM</p></div></div>
+      </div>
+    </div>
+    <div class="cform rv">
+      <div class="cform-title">Book a Test Drive</div>
+      <div class="cform-sub">We'll confirm your appointment within 2 hours.</div>
+      <div class="frow">
+        <div class="fg"><label>First Name</label><input type="text" placeholder="John"></div>
+        <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Phone</label><input type="tel" placeholder="+1 (403) 000-0000"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="john@email.com"></div>
+      </div>
+      <div class="fg">
+        <label>Vehicle of Interest</label>
+        <select>
+          <option value="">Select a vehicle</option>
+          <option>BMW M5 Competition — $142,900</option>
+          <option>Porsche 911 Carrera S — $168,500</option>
+          <option>Mercedes-Benz AMG GT 63 S — $189,000</option>
+          <option>Other — please describe below</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell us about your timeline, preferences, or any questions..."></textarea></div>
+      <button class="fbtn" onclick="this.textContent='✓ Request Sent — We\'ll Call You Soon';this.style.background='#2a2a2a';this.style.color='rgba(255,255,255,0.5)';this.disabled=true;">Send Request</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="fb">
+      <div class="fb-logo">McKernon Motors</div>
+      <p>Calgary's most trusted premium automotive dealership. Serving Alberta's most discerning drivers since 2008 with an unwavering commitment to honesty and excellence.</p>
+    </div>
+    <div class="fc"><h4>Explore</h4><ul><li><a href="#">New Vehicles</a></li><li><a href="#">Certified Pre-Owned</a></li><li><a href="#">Special Offers</a></li><li><a href="#">Compare Models</a></li></ul></div>
+    <div class="fc"><h4>Services</h4><ul><li><a href="#">Financing</a></li><li><a href="#">Trade-In</a></li><li><a href="#">Service Centre</a></li><li><a href="#">Parts & Accessories</a></li></ul></div>
+    <div class="fc"><h4>Calgary</h4><ul><li><a href="#">Macleod Trail SW</a></li><li><a href="#">+1 (403) 555-0192</a></li><li><a href="#">Mon–Sat: 9AM–7PM</a></li><li><a href="#">sales@mckernonmotors.ca</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 McKernon Motors. Calgary, Alberta, Canada. All rights reserved.</p>
+    <p>4820 Macleod Trail SW · Calgary, AB T2G 0A5</p>
+  </div>
+</footer>
+
+<script>
+// LOADER
+setTimeout(()=>document.getElementById('loader').classList.add('out'),2000);
+
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*0.13;ry+=(my-ry)*0.13;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.car3d,.svc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.classList.add('hover');
+    ring.style.transform='translate(-50%,-50%) scale(1.4)';
+    ring.style.borderColor='rgba(0,0,0,0.5)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.classList.remove('hover');
+    ring.style.transform='translate(-50%,-50%) scale(1)';
+    ring.style.borderColor='rgba(0,0,0,0.3)';
+  });
+});
+
+// NAV
+const nav=document.getElementById('nav');
+let heroHeight=window.innerHeight;
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(y<heroHeight){
+    nav.className=y>60?'dark-nav':'';
+  } else {
+    nav.className='scrolled';
+  }
+  // Parallax hero car
+  const heroCar=document.getElementById('heroCar');
+  if(heroCar){
+    const p=Math.min(y/heroHeight,1);
+    heroCar.style.transform=`perspective(1200px) rotateY(${-8+p*4}deg) rotateX(${3-p*2}deg) translateY(${p*-30}px)`;
+  }
+});
+
+// 3D TILT ON CARDS
+document.querySelectorAll('.car3d').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const cx=(e.clientX-r.left)/r.width-0.5;
+    const cy=(e.clientY-r.top)/r.height-0.5;
+    card.style.transform=`perspective(800px) rotateY(${cx*14}deg) rotateX(${-cy*10}deg) translateY(-12px)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)';
+  });
+});
+
+// SCROLL REVEAL
+const allRevs=document.querySelectorAll('.rv,.rvl,.rvr');
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('on'),i*80);
+  });
+},{threshold:0.1});
+allRevs.forEach(el=>revObs.observe(el));
+
+// 3D ROW SCROLL ANIMATION
+const carsRow=document.getElementById('carsRow');
+if(carsRow){
+  window.addEventListener('scroll',()=>{
+    const rect=carsRow.getBoundingClientRect();
+    const vh=window.innerHeight;
+    if(rect.top<vh&&rect.bottom>0){
+      const progress=(vh-rect.top)/(vh+rect.height);
+      const cards=carsRow.querySelectorAll('.car3d');
+      cards.forEach((c,i)=>{
+        const offset=(i-1)*20;
+        const tilt=Math.sin(progress*Math.PI)*4;
+        if(!c.matches(':hover')){
+          c.style.transform=`perspective(900px) rotateY(${tilt+offset*0.1}deg) rotateX(${-tilt*0.3}deg)`;
+        }
+      });
+    }
+  });
+}
+</script>
+</body>
+</html>
